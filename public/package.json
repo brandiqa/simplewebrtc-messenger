@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Simple WebRTC Messenger",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app-server.js"
   },
   "keywords": [
     "WebRTC"
@@ -11,6 +11,9 @@
   "author": "Michael Wanyoike",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "https": "^1.0.0"
   }
 }
