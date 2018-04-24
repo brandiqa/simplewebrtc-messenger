@@ -8,8 +8,25 @@
   <title>SimpleWebRTC Demo</title>
 </head>
 <body>
+
   <div class="ui container">
-    <h1>Simple WebRTC Messenger</h1>
+    <h1 class="ui header">Simple WebRTC Messenger</h1>
+    <hr>
+    <div class="ui three column grid">
+      <div class="ui four wide column">
+        <p>Peer Video</p>
+      </div>
+      <div class="ui eight wide column">
+        Chat Messages
+      </div>
+      <div class="ui four wide column">
+        <!-- Display video of the current user -->
+        <div id="my-camera" class="camera">
+          <video width="200" height="200" autoplay></video>
+        </div>
+        Local Video
+      </div>
+    </div>
   </div>
 
   <!-- Scripts -->
