@@ -12,9 +12,10 @@ var options = {
 
 const app = express();
 
-const server = https.createServer(options, app).listen(port, function () {
-  console.log("Express server listening on port " + port);
-});
+// const server = https.createServer(options, app).listen(port, function () {
+//   console.log("Express server listening on port " + port);
+// });
 
 app.use(express.static('./'));
+app.listen(port);
 
