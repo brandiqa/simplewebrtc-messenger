@@ -14,14 +14,18 @@
     <hr>
     <div class="ui three column grid">
       <div class="ui four wide column">
-         <img class="ui centered medium image" src="image.png">
+        <!-- Display video of the peer user -->
+        <img id="peer-image" class="ui centered medium image" src="image.png">
+        <div id="peer-camera" class="ui video camera">
+          <video width="400" height="400" autoplay></video>
+        </div>
         <h4 class="ui center aligned header">
           Remote Camera
         </h4>
       </div>
       <div class="ui eight wide column">
         <div class="ui segment">
-          <div class="ui form">
+          <form class="ui form">
             <div class="fields">
               <div class="inline field">
                 <label>Room</label>
@@ -29,21 +33,27 @@
               </div>
               <div class="ui submit primary button">Create Room</div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
       <div class="ui four wide column">
         <!-- Display video of the current user -->
-        <!-- <div id="my-camera" class="camera">
+        <img  id="my-image" class="ui centered small image" src="image.png">
+        <div id="my-camera" class="ui video camera">
           <video width="200" height="200" autoplay></video>
-        </div> -->
-        <img class="ui centered small image" src="image.png">
+        </div>
         <h4 class="ui center aligned header">
           Local Camera
         </h4>
       </div>
     </div>
   </div>
+
+  <!-- TEMPLATES -->
+  <!-- Chat Template -->
+  <script id="chat-room-template" type="text/x-handlebars-template">
+    <h2 class="ui header">Chat Room</h2>
+  </script>
 
   <!-- Scripts -->
   <script src="scripts/jquery/dist/jquery.min.js"></script>
