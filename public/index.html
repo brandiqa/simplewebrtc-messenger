@@ -14,17 +14,33 @@
     <hr>
     <div class="ui three column grid">
       <div class="ui four wide column">
-        <p>Peer Video</p>
+         <img class="ui centered medium image" src="image.png">
+        <h4 class="ui center aligned header">
+          Remote Camera
+        </h4>
       </div>
       <div class="ui eight wide column">
-        Chat Messages
+        <div class="ui segment">
+          <div class="ui form">
+            <div class="fields">
+              <div class="inline field">
+                <label>Room</label>
+                <input type="text" placeholder="Enter room name" id="room" name="room">
+              </div>
+              <div class="ui submit primary button">Create Room</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="ui four wide column">
         <!-- Display video of the current user -->
-        <div id="my-camera" class="camera">
+        <!-- <div id="my-camera" class="camera">
           <video width="200" height="200" autoplay></video>
-        </div>
-        Local Video
+        </div> -->
+        <img class="ui centered small image" src="image.png">
+        <h4 class="ui center aligned header">
+          Local Camera
+        </h4>
       </div>
     </div>
   </div>

@@ -18,6 +18,6 @@ window.addEventListener('load', () => {
     }
   }
 
-  getVideo();
+  // getVideo();
 
 })
