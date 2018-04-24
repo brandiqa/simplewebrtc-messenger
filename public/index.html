@@ -15,10 +15,8 @@
     <div class="ui three column grid">
       <div class="ui four wide column">
         <!-- Display video of the peer user -->
-        <img id="peer-image" class="ui centered medium image" src="image.png">
-        <div id="peer-camera" class="ui video camera">
-          <video width="400" height="400" autoplay></video>
-        </div>
+        <img id="remote-image" class="ui centered medium image" src="image.png">
+        <video id="remote-video" class="ui video camera" width="400" height="400" autoplay></video>
         <h4 class="ui center aligned header">
           Remote Camera
         </h4>
@@ -38,10 +36,8 @@
       </div>
       <div class="ui four wide column">
         <!-- Display video of the current user -->
-        <img  id="my-image" class="ui centered small image" src="image.png">
-        <div id="my-camera" class="ui video camera">
-          <video width="200" height="200" autoplay></video>
-        </div>
+        <img  id="local-image" class="ui centered small image" src="image.png">
+        <video id="local-video" class="ui video camera" width="200" height="200" autoplay></video>
         <h4 class="ui center aligned header">
           Local Camera
         </h4>
@@ -59,6 +55,7 @@
   <script src="scripts/jquery/dist/jquery.min.js"></script>
   <script src="scripts/semantic-ui-css/semantic.min.js"></script>
   <script src="scripts/handlebars/dist/handlebars.min.js "></script>
+  <script src="scripts/simplewebrtc/out/simplewebrtc-with-adapter.bundle.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
