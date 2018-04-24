@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Simple WebRTC Messenger",
   "scripts": {
-    "start": "node app-server.js"
+    "start": "node server.js"
   },
   "keywords": [
     "WebRTC"
@@ -12,9 +12,8 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.3",
-    "fs": "0.0.1-security",
-    "http": "0.0.0",
-    "https": "^1.0.0",
+    "handlebars": "^4.0.11",
+    "jquery": "^3.3.1",
     "semantic-ui-css": "^2.3.1"
   }
 }
