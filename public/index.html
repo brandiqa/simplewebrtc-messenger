@@ -12,7 +12,7 @@
   <div class="ui container">
     <h1 class="ui header">Simple WebRTC Messenger</h1>
     <hr>
-    <div class="ui three column grid">
+    <div class="ui three column stackable grid">
       <div class="ui four wide column">
         <!-- Display video of the peer user -->
         <img id="remote-image" class="ui centered medium image" src="image.png">
@@ -23,14 +23,22 @@
       </div>
       <div class="ui eight wide column">
         <div class="ui segment">
+          <h2 class="ui header">Video Chat Room</h2>
+          <hr>
           <form class="ui form">
             <div class="fields">
-              <div class="inline field">
+              <div class="field">
+                <label>User Name</label>
+                <input type="text" placeholder="Enter user name" id="username" name="username">
+              </div>
+              <div class="field">
                 <label>Room</label>
                 <input type="text" placeholder="Enter room name" id="room" name="room">
               </div>
-              <div class="ui submit primary button">Create Room</div>
             </div>
+            <br>
+            <div id="create-btn" class="ui submit green button">Create Room</div>
+            <div id="join-btn" class="ui submit orange button">Join Room</div>
           </form>
         </div>
       </div>

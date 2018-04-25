@@ -1,8 +1,5 @@
 window.addEventListener('load', () => {
 
-  // grab the room from the URL
-  const room = location.search && location.search.split('?')[1];
-
   // const roomChatTemplate = Handlebars.compile($('#chat-room-template').html());
 
   const localVideo = $('#local-video');
@@ -16,31 +13,25 @@ window.addEventListener('load', () => {
   remoteVideo.hide();
 
   // create our webrtc connection
-  var webrtc = new SimpleWebRTC({
-    // the id/element dom element that will hold "our" video
-    localVideoEl: 'local-video',
-    // the id/element dom element that will hold remote videos
-    remoteVideosEl: 'remote-video',
-    // immediately ask for camera access
-    autoRequestMedia: true,
-    debug: false,
-    detectSpeakingEvents: true,
-    autoAdjustMic: false
-  });
+  // var webrtc = new SimpleWebRTC({
+  //   // the id/element dom element that will hold "our" video
+  //   localVideoEl: 'local-video',
+  //   // the id/element dom element that will hold remote videos
+  //   remoteVideosEl: 'remote-video',
+  //   // immediately ask for camera access
+  //   autoRequestMedia: true,
+  //   debug: false,
+  //   detectSpeakingEvents: true,
+  //   autoAdjustMic: false
+  // });
 
-  // We got access to local camera
-  webrtc.on('localStream', function (stream) {
-    localImage.hide();
-    localVideo.show();
-  });
+  // // We got access to local camera
+  // webrtc.on('localStream', function (stream) {
+  //   localImage.hide();
+  //   localVideo.show();
+  // });
 
-  // Form Validation Rules
-  $('form').form({
-    fields: {
-      room: 'empty',
-    },
-  });
-  $('.submit').on('click', () => {
+  const createRoomHandler = () => {
     const roomName = $('#room').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
     console.log(roomName);
     webrtc.createRoom(roomName, (err, name) => {
@@ -55,7 +46,16 @@ window.addEventListener('load', () => {
       }
     });
     return false;
+  }
+
+  // Form Validation Rules
+  $('form').form({
+    fields: {
+      username: 'empty',
+      room: 'empty',
+    },
   });
+  $('#create-btn').on('click', createRoomHandler);
 
   // const onReceiveStream = (stream, video) => {
   //   video.srcObject = stream;
