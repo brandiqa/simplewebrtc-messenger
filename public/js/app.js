@@ -41,9 +41,19 @@ window.addEventListener('load', () => {
     },
   });
   $('.submit').on('click', () => {
-    const roomName = $('#room').val();
+    const roomName = $('#room').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
     console.log(roomName);
-    $('form').form('clear');
+    webrtc.createRoom(roomName, (err, name) => {
+      console.log(' create room cb');
+      const newUrl = location.pathname + '?' + name;
+      if (!err) {
+        history.replaceState({ foo: 'bar' }, null, newUrl);
+        setRoom(name);
+        $('form').form('clear');
+      } else {
+        console.log(err);
+      }
+    });
     return false;
   });
 
