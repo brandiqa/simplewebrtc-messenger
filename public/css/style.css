@@ -1,4 +1,8 @@
-/* #chat-content {
+html {
+  margin-top: 20px;
+}
+
+#chat-content {
   height: 90%;
   overflow-y: scroll;
-} */
+}

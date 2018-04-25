@@ -45,16 +45,9 @@ window.addEventListener('load', () => {
 
   const showChatRoom = () => {
     form.hide();
-    messages.push({
-      username : 'wolf',
-      message: 'greatest show'
-    })
     const html = chatRoomTemplate({ messages });
     chat.html(html);
-    // $('#')
   }
-
-  // showChatRoom();
 
   const createRoomHandler = () => {
     if (!form.form('is valid')) {
@@ -84,26 +77,5 @@ window.addEventListener('load', () => {
     },
   });
   $('#create-btn').on('click', createRoomHandler);
-
-  // const onReceiveStream = (stream, video) => {
-  //   video.srcObject = stream;
-  //   window.peer_stream = stream;
-  // }
-
-  // const getVideo = async () => {
-  //   try {
-  //     const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-  //     window.localStream = stream;
-  //     const video = myCamera.find('video')[0];
-  //     onReceiveStream(stream, video);
-  //     myImage.hide();
-  //     myCamera.show();
-  //   } catch (error) {
-  //     console.log(error);
-  //     alert('An error occurred. Please try again');
-  //   }
-  // }
-
-  // getVideo();
 
 });

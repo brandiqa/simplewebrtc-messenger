@@ -16,13 +16,13 @@
     <div class="ui three column stackable grid">
       <div class="ui four wide column">
         <!-- Display video of the peer user -->
-        <img id="remote-image" class="ui centered medium image" src="image.png">
+        <img id="remote-image" class="ui centered medium image" src="images/image.png">
         <video id="remote-video" class="ui video camera" width="400" height="400" autoplay></video>
         <h4 class="ui center aligned header">
           Remote Camera
         </h4>
       </div>
-      <div class="ui eight wide column">
+      <div class="ui nine wide column">
         <div class="ui segment">
           <h2 class="ui header">Video Chat Room</h2>
           <hr>
@@ -49,9 +49,9 @@
           <div id="chat"></div>
         </div>
       </div>
-      <div class="ui four wide column">
+      <div class="ui three wide column">
         <!-- Display video of the current user -->
-        <img  id="local-image" class="ui centered small image" src="image.png">
+        <img  id="local-image" class="ui centered small image" src="images/image.png">
         <video id="local-video" class="ui video camera" width="200" height="200" autoplay></video>
         <h4 class="ui center aligned header">
           Local Camera
@@ -63,32 +63,34 @@
   <!-- TEMPLATES -->
   <!-- Chat Template -->
   <script id="chat-room-template" type="text/x-handlebars-template">
-    {{#each messages}}
-    <div class="event">
-      <div class="label">
-        <img src="image.png">
-      </div>
-      <div class="content">
-        <div class="summary">
-          <a href="#"> {{ username }}</a> posted on
-          <div class="date">
-            {{ createdAt }}
+    <div id="chat-content" class="ui feed">
+       {{#each messages}}
+      <div class="event">
+        <div class="label">
+          <i class="icon blue user"></i>
+        </div>
+        <div class="content">
+          <div class="summary">
+            <a href="#"> {{ username }}</a> posted on
+            <div class="date">
+              {{ postedOn }}
+            </div>
+          </div>
+          <div class="extra text">
+            {{ message }}
           </div>
         </div>
-        <div class="extra text">
-          {{ message }}
-        </div>
       </div>
+      {{/each}}
     </div>
-    {{/each}}
     <hr>
     <div class="ui basic segment">
       <div class="ui form">
         <div class="ui field">
           <label>Post Message</label>
-          <textarea id="post-field" rows="2"></textarea>
+          <textarea id="post-field" rows="1"></textarea>
         </div>
-        <button id="post-btn" class="ui right floated large orange button" type="submit">Post</button>
+        <div id="post-btn" class="ui primary submit button">Send</div>
       </div>
       <div id="post-err" class="ui tiny compact negative message" style="display:none;">
         <p>Oops! Something went wrong.</p>
