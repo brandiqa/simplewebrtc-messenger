@@ -1,12 +1,16 @@
 window.addEventListener('load', () => {
 
-  // const roomChatTemplate = Handlebars.compile($('#chat-room-template').html());
+  const chatRoomTemplate = Handlebars.compile($('#chat-room-template').html());
 
   const localVideo = $('#local-video');
   const remoteVideo = $('#remote-video');
   const localImage = $('#local-image');
   const remoteImage = $('#remote-image');
-  // const roomEl = $('#room-wrapper');
+  const chat = $('#chat');
+  const form = $('form');
+
+  const messages = [];
+  let username;
 
   // Hide cameras until they are initialized
   localVideo.hide();
@@ -31,7 +35,31 @@ window.addEventListener('load', () => {
   //   localVideo.show();
   // });
 
+  const receiveMessage = () => {
+
+  }
+
+  const postMessage = () => {
+
+  }
+
+  const showChatRoom = () => {
+    form.hide();
+    messages.push({
+      username : 'wolf',
+      message: 'greatest show'
+    })
+    const html = chatRoomTemplate({ messages });
+    chat.html(html);
+    // $('#')
+  }
+
+  // showChatRoom();
+
   const createRoomHandler = () => {
+    if (!form.form('is valid')) {
+      return false;
+    }
     const roomName = $('#room').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
     console.log(roomName);
     webrtc.createRoom(roomName, (err, name) => {
@@ -49,10 +77,10 @@ window.addEventListener('load', () => {
   }
 
   // Form Validation Rules
-  $('form').form({
+  form.form({
     fields: {
-      username: 'empty',
       room: 'empty',
+      username: 'empty',
     },
   });
   $('#create-btn').on('click', createRoomHandler);

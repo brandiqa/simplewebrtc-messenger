@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="scripts/semantic-ui-css/semantic.min.css">
+  <link rel="stylesheet" href="css/style.css">
   <title>SimpleWebRTC Demo</title>
 </head>
 <body>
@@ -25,6 +26,7 @@
         <div class="ui segment">
           <h2 class="ui header">Video Chat Room</h2>
           <hr>
+          <!-- Chat Room Form -->
           <form class="ui form">
             <div class="fields">
               <div class="field">
@@ -37,9 +39,14 @@
               </div>
             </div>
             <br>
-            <div id="create-btn" class="ui submit green button">Create Room</div>
-            <div id="join-btn" class="ui submit orange button">Join Room</div>
+            <div class="ui buttons">
+              <div id="create-btn" class="ui submit orange button">Create Room</div>
+              <div class="or"></div>
+              <div id="join-btn" class="ui submit green button">Join Room</div>
+            </div>
           </form>
+          <!-- Chat Room Messages -->
+          <div id="chat"></div>
         </div>
       </div>
       <div class="ui four wide column">
@@ -56,7 +63,37 @@
   <!-- TEMPLATES -->
   <!-- Chat Template -->
   <script id="chat-room-template" type="text/x-handlebars-template">
-    <h2 class="ui header">Chat Room</h2>
+    {{#each messages}}
+    <div class="event">
+      <div class="label">
+        <img src="image.png">
+      </div>
+      <div class="content">
+        <div class="summary">
+          <a href="#"> {{ username }}</a> posted on
+          <div class="date">
+            {{ createdAt }}
+          </div>
+        </div>
+        <div class="extra text">
+          {{ message }}
+        </div>
+      </div>
+    </div>
+    {{/each}}
+    <hr>
+    <div class="ui basic segment">
+      <div class="ui form">
+        <div class="ui field">
+          <label>Post Message</label>
+          <textarea id="post-field" rows="2"></textarea>
+        </div>
+        <button id="post-btn" class="ui right floated large orange button" type="submit">Post</button>
+      </div>
+      <div id="post-err" class="ui tiny compact negative message" style="display:none;">
+        <p>Oops! Something went wrong.</p>
+      </div>
+    </div>
   </script>
 
   <!-- Scripts -->
