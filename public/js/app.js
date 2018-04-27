@@ -41,8 +41,37 @@ window.addEventListener('load', () => {
 
   // Receive message from remote user
   webrtc.connection.on('message', (data) => {
-    receiveMessage(data);
-  })
+    console.log(data);
+  });
+
+  const displayRoom = () => {
+    // Add joined message
+    messages.push({
+      username,
+      message: `${username} joined chatroom`,
+      postedOn: new Date().toLocaleString('en-GB')
+    });
+    showChatRoom();
+  }
+
+  const createRoom = (roomName) => {
+    console.info(`Creating new room: ${roomName}`);
+
+    webrtc.createRoom(roomName, (err, name) => {
+      room = name;
+      formEl.form('clear');
+      displayRoom();
+    });
+  }
+
+  const joinRoom = (roomName) => {
+    // when it's ready, join if we got a room from the URL
+    webrtc.on('readyToCall', function () {
+      webrtc.joinRoom(roomName);
+      room = roomName;
+    });
+    displayRoom();
+  }
 
   // Form Validation Rules
   formEl.form({
@@ -51,31 +80,20 @@ window.addEventListener('load', () => {
       username: 'empty',
     },
   });
-  $('#create-btn').on('click', () => {
+  $('.submit').on('click', (event) => {
     if (!formEl.form('is valid')) {
       return false;
     }
     username = $('#username').val();
     const roomName = $('#room').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
-    console.info(`Creating new room: ${roomName}`);
+    if(event.target.id === 'create-btn') {
+      createRoom(roomName);
+    } else {
+      joinRoom(roomName);
+    }
 
-    webrtc.createRoom(roomName, (err, name) => {
-      room = name;
-      formEl.form('clear');
-      // Add joined message
-      messages.push({
-        username,
-        message: `${username} joined chatroom`,
-        postedOn: new Date().toLocaleString('en-GB')
-      });
-      showChatRoom();
-    });
     return false;
   });
-
-  const receiveMessage = (data) => {
-    console.log(data);
-  }
 
   const postMessage = (message) => {
     const chatMessage = {
