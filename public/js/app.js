@@ -50,30 +50,56 @@ window.addEventListener('load', () => {
     if (!formEl.form('is valid')) {
       return false;
     }
+    username = $('#username').val();
     const roomName = $('#room').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
     console.info(`Creating new room: ${roomName}`);
 
     webrtc.createRoom(roomName, (err, name) => {
       let room = name;
       formEl.form('clear');
+      // Add joined message
+      messages.push({
+        username,
+        message: `${username} joined chatroom`,
+        postedOn: new Date().toLocaleString('en-GB')
+      });
       showChatRoom();
     });
+
+    webrtc.connection.on('message', (data) => {
+      receiveMessage(data);
+    })
 
     return false;
   });
 
-  const receiveMessage = () => {
-
+  const receiveMessage = (data) => {
+    console.log(data);
   }
 
-  const postMessage = () => {
-
+  const postMessage = (message) => {
+    // webrtc.sendToAll("chat", { text: message })
+    messages.push({
+      username,
+      message,
+      postedOn: new Date().toLocaleString('en-GB')
+    });
+    $('#post-message').val('');
+    showChatRoom();
   }
 
   const showChatRoom = () => {
     formEl.hide();
     const html = chatRoomTemplate({ messages });
     chatEl.html(html);
+    const postForm = $('form');
+    postForm.form({
+      message: 'empty'
+    });
+    $('#post-btn').on('click', () => {
+      const message = $('#post-message').val();
+      postMessage(message);
+    })
   }
 
   const createRoomHandler = () => {
