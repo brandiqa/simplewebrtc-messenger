@@ -24,7 +24,7 @@
       </div>
       <div class="ui nine wide column">
         <div class="ui segment">
-          <h2 class="ui header">Video Chat Room</h2>
+          <h2 class="ui header">Video Chat</h2>
           <hr>
           <!-- Chat Room Form -->
           <form class="ui form">
@@ -63,6 +63,7 @@
   <!-- TEMPLATES -->
   <!-- Chat Template -->
   <script id="chat-room-template" type="text/x-handlebars-template">
+    <h3 class="ui header">Room ID: {{ room }}</h3>
     <div id="chat-content" class="ui feed">
        {{#each messages}}
       <div class="event">

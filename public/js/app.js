@@ -55,7 +55,7 @@ window.addEventListener('load', () => {
     console.info(`Creating new room: ${roomName}`);
 
     webrtc.createRoom(roomName, (err, name) => {
-      let room = name;
+      room = name;
       formEl.form('clear');
       // Add joined message
       messages.push({
@@ -90,7 +90,7 @@ window.addEventListener('load', () => {
 
   const showChatRoom = () => {
     formEl.hide();
-    const html = chatRoomTemplate({ messages });
+    const html = chatRoomTemplate({ room, messages });
     chatEl.html(html);
     const postForm = $('form');
     postForm.form({
