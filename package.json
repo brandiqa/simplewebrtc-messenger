@@ -10,6 +10,10 @@
   ],
   "author": "Michael Wanyoike",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:brandiqa/simplewebrtc-messenger.git"
+  },
   "dependencies": {
     "express": "^4.16.3",
     "handlebars": "^4.0.11",
