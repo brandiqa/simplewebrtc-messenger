@@ -42,17 +42,12 @@ window.addEventListener('load', () => {
   // Receive message from remote user
   webrtc.connection.on('message', (data) => {
     console.log(data);
+    if(data.type === 'chat') {
+      const message = data.payload;
+      messages.push(message);
+      showChatRoom();
+    }
   });
-
-  const displayRoom = () => {
-    // Add joined message
-    messages.push({
-      username,
-      message: `${username} joined chatroom`,
-      postedOn: new Date().toLocaleString('en-GB')
-    });
-    showChatRoom();
-  }
 
   const createRoom = (roomName) => {
     console.info(`Creating new room: ${roomName}`);
@@ -64,13 +59,21 @@ window.addEventListener('load', () => {
     });
   }
 
-  const joinRoom = (roomName) => {
-    // when it's ready, join if we got a room from the URL
-    webrtc.on('readyToCall', function () {
-      webrtc.joinRoom(roomName);
-      room = roomName;
+  const addToRoom = () => {
+    // Add joined message
+    messages.push({
+      username,
+      message: `${username} joined chatroom`,
+      postedOn: new Date().toLocaleString('en-GB')
     });
-    displayRoom();
+    showChatRoom();
+  }
+
+  const joinRoom = (roomName) => {
+    console.log(`Joining Room ${roomName}`)
+    webrtc.joinRoom(roomName);
+    room = roomName;
+    addToRoom();
   }
 
   // Form Validation Rules
