@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
   const chatTemplate = Handlebars.compile($('#chat-template').html());
   const chatContentTemplate = Handlebars.compile($('#chat-content-template').html());
   const chatEl = $('#chat');
-  const formEl = $('form');
+  const formEl = $('.form');
   const messages = [];
   let username;
 
