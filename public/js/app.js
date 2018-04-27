@@ -39,6 +39,11 @@ window.addEventListener('load', () => {
     localVideoEl.show();
   });
 
+  // Receive message from remote user
+  webrtc.connection.on('message', (data) => {
+    receiveMessage(data);
+  })
+
   // Form Validation Rules
   formEl.form({
     fields: {
@@ -65,11 +70,6 @@ window.addEventListener('load', () => {
       });
       showChatRoom();
     });
-
-    webrtc.connection.on('message', (data) => {
-      receiveMessage(data);
-    })
-
     return false;
   });
 
@@ -78,12 +78,15 @@ window.addEventListener('load', () => {
   }
 
   const postMessage = (message) => {
-    // webrtc.sendToAll("chat", { text: message })
-    messages.push({
+    const chatMessage = {
       username,
       message,
       postedOn: new Date().toLocaleString('en-GB')
-    });
+    }
+    // Send to all peers
+    webrtc.sendToAll("chat", chatMessage);
+    // Update messages locally
+    messages.push(chatMessage);
     $('#post-message').val('');
     showChatRoom();
   }
