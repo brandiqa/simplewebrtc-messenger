@@ -3,6 +3,6 @@ html {
 }
 
 #chat-content {
-  height: 90%;
+  height: 180px;
   overflow-y: scroll;
 }

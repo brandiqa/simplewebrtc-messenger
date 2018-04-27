@@ -55,11 +55,11 @@ window.addEventListener('load', () => {
     webrtc.createRoom(roomName, (err, name) => {
       room = name;
       formEl.form('clear');
-      displayRoom();
+      enterRoom();
     });
   }
 
-  const addToRoom = () => {
+  const enterRoom = () => {
     // Add joined message
     messages.push({
       username,
@@ -73,7 +73,7 @@ window.addEventListener('load', () => {
     console.log(`Joining Room ${roomName}`)
     webrtc.joinRoom(roomName);
     room = roomName;
-    addToRoom();
+    enterRoom();
   }
 
   // Form Validation Rules
@@ -120,10 +120,19 @@ window.addEventListener('load', () => {
     postForm.form({
       message: 'empty'
     });
+    // automatically scroll downwards
+    const scrollHeight = chatEl.prop("scrollHeight");
+    chatEl.animate({ scrollTop: scrollHeight }, "slow");
     $('#post-btn').on('click', () => {
       const message = $('#post-message').val();
       postMessage(message);
-    })
+    });
+    $('#post-message').on('keyup', (event) => {
+      if (event.keyCode === 13) {
+        const message = $('#post-message').val();
+        postMessage(message);
+      }
+    });
   }
 
   const createRoomHandler = () => {

@@ -13,19 +13,11 @@
   <div class="ui container">
     <h1 class="ui header">Simple WebRTC Messenger</h1>
     <hr>
-    <div class="ui three column stackable grid">
-      <div class="ui four wide column">
-        <!-- Display video of the peer user -->
-        <img id="remote-image" class="ui centered medium image" src="images/image.png">
-        <video id="remote-video" class="ui video camera" width="400" height="400" autoplay></video>
-        <h4 class="ui center aligned header">
-          Remote Camera
-        </h4>
-      </div>
-      <div class="ui nine wide column">
+    <div class="ui two column stackable grid">
+      <div class="ui ten wide column">
         <div class="ui segment">
-          <h2 class="ui header">Video Chat</h2>
-          <hr>
+          <!-- <h2 class="ui header">Video Chat</h2>
+          <hr> -->
           <!-- Chat Room Form -->
           <form class="ui form">
             <div class="fields">
@@ -49,13 +41,40 @@
           <div id="chat"></div>
         </div>
       </div>
-      <div class="ui three wide column">
+      <div class="ui six wide column">
         <!-- Display video of the current user -->
-        <img  id="local-image" class="ui centered small image" src="images/image.png">
-        <video id="local-video" class="ui video camera" width="200" height="200" autoplay></video>
-        <h4 class="ui center aligned header">
+        <img  id="local-image" class="ui large image" src="images/image.png">
+        <video id="local-video" class="ui large image"  autoplay></video>
+        <h4 class="ui center aligned header" style="margin:0;">
           Local Camera
         </h4>
+      </div>
+    </div>
+    <h3 class="ui center aligned header">Remote Cameras</h3>
+    <div class="ui stackable grid">
+      <div class="four wide column">
+        <img class="ui centered medium image" src="images/image.png">
+      </div>
+      <div class="four wide column">
+        <img class="ui centered medium image" src="images/image.png">
+      </div>
+      <div class="four wide column">
+        <img class="ui centered medium image" src="images/image.png">
+      </div>
+      <div class="four wide column">
+        <img class="ui centered medium image" src="images/image.png">
+      </div>
+      <div class="four wide column">
+        <img class="ui centered medium image" src="images/image.png">
+      </div>
+      <div class="four wide column">
+        <img class="ui centered medium image" src="images/image.png">
+      </div>
+      <div class="four wide column">
+        <img class="ui centered medium image" src="images/image.png">
+      </div>
+      <div class="four wide column">
+        <img class="ui centered medium image" src="images/image.png">
       </div>
     </div>
   </div>
@@ -64,6 +83,7 @@
   <!-- Chat Template -->
   <script id="chat-room-template" type="text/x-handlebars-template">
     <h3 class="ui header">Room ID: {{ room }}</h3>
+    <hr>
     <div id="chat-content" class="ui feed">
        {{#each messages}}
       <div class="event">
@@ -85,17 +105,12 @@
       {{/each}}
     </div>
     <hr>
-    <div class="ui basic segment">
-      <div class="ui form">
-        <div class="ui field">
-          <label>Post Message</label>
-          <textarea id="post-message" name="post-message" rows="1"></textarea>
-        </div>
-        <div id="post-btn" class="ui primary submit button">Send</div>
+    <div class="ui form">
+      <div class="ui field">
+        <label>Post Message</label>
+        <textarea id="post-message" name="post-message" rows="1"></textarea>
       </div>
-      <div id="post-err" class="ui tiny compact negative message" style="display:none;">
-        <p>Oops! Something went wrong.</p>
-      </div>
+      <div id="post-btn" class="ui primary submit button">Send</div>
     </div>
   </script>
 
