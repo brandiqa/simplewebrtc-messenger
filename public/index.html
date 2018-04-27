@@ -17,7 +17,7 @@
       <div class="ui ten wide column">
         <div class="ui segment">
           <!-- Chat Room Form -->
-          <form class="ui form">
+          <div class="ui form">
             <div class="fields">
               <div class="field">
                 <label>User Name</label>
@@ -34,7 +34,7 @@
               <div class="or"></div>
               <div id="join-btn" class="ui submit green button">Join Room</div>
             </div>
-          </form>
+          </div>
           <!-- Chat Room Messages -->
           <div id="chat"></div>
         </div>
@@ -49,7 +49,7 @@
       </div>
     </div>
     <h3 class="ui center aligned header">Remote Cameras</h3>
-    <div class="ui stackable grid">
+    <div id="remote-videos" class="ui stackable grid">
       <div class="four wide column">
         <img class="ui centered medium image" src="images/image.png">
       </div>
@@ -78,6 +78,13 @@
   </div>
 
   <!-- TEMPLATES -->
+  <!-- Remote Video Template -->
+  <script id="remote-video-template" type="text/x-handlebars-template">
+    <div id="{{ id }}" class="four wide column">
+      <img class="ui centered medium image" src="images/image.png">
+    </div>
+  </script>
+
   <!-- Chat Content Template -->
   <script id="chat-content-template" type="text/x-handlebars-template">
    {{#each messages}}

@@ -1,32 +1,42 @@
 window.addEventListener('load', () => {
 
+  // Chat platform
   const chatTemplate = Handlebars.compile($('#chat-template').html());
   const chatContentTemplate = Handlebars.compile($('#chat-content-template').html());
-
-  const localVideoEl = $('#local-video');
-  const remoteVideoEl = $('#remote-video');
-  const localImageEl = $('#local-image');
-  const remoteImageEl = $('#remote-image');
   const chatEl = $('#chat');
   const formEl = $('form');
+  const messages = [];
+  let username;
+
+  // Local Video
+  const localImageEl = $('#local-image');
+  const localVideoEl = $('#local-video');
+
+  // Remote Videos
+  const remoteVideoTemplate = Handlebars.compile($('#chat-content-template').html());
+  const remoteVideosEl = $('#remote-videos');
+  const remoteVideosCount = 0;
 
   // Webrtc data
   let room;
 
-  // Chat data
-  const messages = [];
-  let username;
-
   // Hide cameras until they are initialized
   localVideoEl.hide();
-  remoteVideoEl.hide();
+
+  // Add validation rules to Create/Join Room Form
+  formEl.form({
+    fields: {
+      room: 'empty',
+      username: 'empty',
+    },
+  });
 
   // create our webrtc connection
   const webrtc = new SimpleWebRTC({
     // the id/element dom element that will hold "our" video
     localVideoEl: 'local-video',
     // the id/element dom element that will hold remote videos
-    remoteVideosEl: 'remote-video',
+    remoteVideosEl: 'remote-videos',
     // immediately ask for camera access
     autoRequestMedia: true,
     debug: false,
@@ -40,14 +50,21 @@ window.addEventListener('load', () => {
     localVideoEl.show();
   });
 
-  // Form Validation Rules
-  formEl.form({
-    fields: {
-      room: 'empty',
-      username: 'empty',
-    },
+  // Remote video was added
+  webrtc.on('videoAdded', (video, peer) => {
+    console.log(`Remote Video added: ${peer}`);
+    const id = webrtc.getDomId(peer)
+    const html = remoteVideoTemplate({ id });
+    if(remoteVideosCount === 0) {
+      remoteVideosEl.html(html);
+    } else {
+      remoteVideosEl.append(html);
+    }
+    $(`#${id}`).html(video);
+    remoteVideosCount +=1;
   });
 
+  // Update Chat Messages
   const updateChatMessages = () => {
     const html = chatContentTemplate({ messages });
     const chatContentEl = $('#chat-content');
@@ -57,6 +74,7 @@ window.addEventListener('load', () => {
     chatContentEl.animate({ scrollTop: scrollHeight }, "slow");
   }
 
+  // Post Local Message
   const postMessage = (message) => {
     const chatMessage = {
       username,
@@ -71,6 +89,7 @@ window.addEventListener('load', () => {
     updateChatMessages();
   }
 
+  // Display Chat Interface
   const showChatRoom = () => {
     formEl.hide();
     const html = chatTemplate({ room });
@@ -91,6 +110,7 @@ window.addEventListener('load', () => {
     });
   }
 
+  // Join Chat Room Session
   const enterRoom = () => {
     // Add joined message
     messages.push({
@@ -102,6 +122,7 @@ window.addEventListener('load', () => {
     updateChatMessages();
   }
 
+  // Register new Chat Room
   const createRoom = (roomName) => {
     console.info(`Creating new room: ${roomName}`);
     webrtc.createRoom(roomName, (err, name) => {
@@ -111,6 +132,7 @@ window.addEventListener('load', () => {
     });
   }
 
+  // Join existing Chat Room
   const joinRoom = (roomName) => {
     console.log(`Joining Room: ${roomName}`)
     webrtc.joinRoom(roomName);
@@ -128,7 +150,7 @@ window.addEventListener('load', () => {
     }
   });
 
-
+  // Room Submit Button Handler
   $('.submit').on('click', (event) => {
     if (!formEl.form('is valid')) {
       return false;
@@ -143,25 +165,4 @@ window.addEventListener('load', () => {
 
     return false;
   });
-
-  const createRoomHandler = () => {
-    if (!formEl.form('is valid')) {
-      return false;
-    }
-    const roomName = $('#room').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
-    console.log(roomName);
-    webrtc.createRoom(roomName, (err, name) => {
-      console.log(' create room cb');
-      const newUrl = location.pathname + '?' + name;
-      if (!err) {
-        history.replaceState({ foo: 'bar' }, null, newUrl);
-        setRoom(name);
-        $('form').form('clear');
-      } else {
-        console.log(err);
-      }
-    });
-    return false;
-  }
-
 });
