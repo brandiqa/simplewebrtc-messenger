@@ -16,8 +16,6 @@
     <div class="ui two column stackable grid">
       <div class="ui ten wide column">
         <div class="ui segment">
-          <!-- <h2 class="ui header">Video Chat</h2>
-          <hr> -->
           <!-- Chat Room Form -->
           <form class="ui form">
             <div class="fields">
@@ -80,30 +78,33 @@
   </div>
 
   <!-- TEMPLATES -->
-  <!-- Chat Template -->
-  <script id="chat-room-template" type="text/x-handlebars-template">
-    <h3 class="ui header">Room ID: {{ room }}</h3>
-    <hr>
-    <div id="chat-content" class="ui feed">
-       {{#each messages}}
-      <div class="event">
-        <div class="label">
-          <i class="icon blue user"></i>
+  <!-- Chat Content Template -->
+  <script id="chat-content-template" type="text/x-handlebars-template">
+   {{#each messages}}
+    <div class="event">
+      <div class="label">
+        <i class="icon blue user"></i>
+      </div>
+      <div class="content">
+        <div class="summary">
+          <a href="#"> {{ username }}</a> posted on
+          <div class="date">
+            {{ postedOn }}
+          </div>
         </div>
-        <div class="content">
-          <div class="summary">
-            <a href="#"> {{ username }}</a> posted on
-            <div class="date">
-              {{ postedOn }}
-            </div>
-          </div>
-          <div class="extra text">
-            {{ message }}
-          </div>
+        <div class="extra text">
+          {{ message }}
         </div>
       </div>
-      {{/each}}
     </div>
+  {{/each}}
+  </script>
+
+  <!-- Chat Template -->
+  <script id="chat-template" type="text/x-handlebars-template">
+    <h3 class="ui orange header">Room ID -> <strong>{{ room }}</strong></h3>
+    <hr>
+    <div id="chat-content" class="ui feed"> </div>
     <hr>
     <div class="ui form">
       <div class="ui field">

@@ -1,6 +1,7 @@
 window.addEventListener('load', () => {
 
-  const chatRoomTemplate = Handlebars.compile($('#chat-room-template').html());
+  const chatTemplate = Handlebars.compile($('#chat-template').html());
+  const chatContentTemplate = Handlebars.compile($('#chat-content-template').html());
 
   const localVideoEl = $('#local-video');
   const remoteVideoEl = $('#remote-video');
@@ -39,23 +40,54 @@ window.addEventListener('load', () => {
     localVideoEl.show();
   });
 
-  // Receive message from remote user
-  webrtc.connection.on('message', (data) => {
-    console.log(data);
-    if(data.type === 'chat') {
-      const message = data.payload;
-      messages.push(message);
-      showChatRoom();
-    }
+  // Form Validation Rules
+  formEl.form({
+    fields: {
+      room: 'empty',
+      username: 'empty',
+    },
   });
 
-  const createRoom = (roomName) => {
-    console.info(`Creating new room: ${roomName}`);
+  const updateChatMessages = () => {
+    const html = chatContentTemplate({ messages });
+    const chatContentEl = $('#chat-content');
+    chatContentEl.html(html);
+    // automatically scroll downwards
+    const scrollHeight = chatContentEl.prop("scrollHeight");
+    chatContentEl.animate({ scrollTop: scrollHeight }, "slow");
+  }
 
-    webrtc.createRoom(roomName, (err, name) => {
-      room = name;
-      formEl.form('clear');
-      enterRoom();
+  const postMessage = (message) => {
+    const chatMessage = {
+      username,
+      message,
+      postedOn: new Date().toLocaleString('en-GB')
+    }
+    // Send to all peers
+    webrtc.sendToAll("chat", chatMessage);
+    // Update messages locally
+    messages.push(chatMessage);
+    $('#post-message').val('');
+    updateChatMessages();
+  }
+
+  const showChatRoom = () => {
+    formEl.hide();
+    const html = chatTemplate({ room });
+    chatEl.html(html);
+    const postForm = $('form');
+    postForm.form({
+      message: 'empty'
+    });
+    $('#post-btn').on('click', () => {
+      const message = $('#post-message').val();
+      postMessage(message);
+    });
+    $('#post-message').on('keyup', (event) => {
+      if (event.keyCode === 13) {
+        const message = $('#post-message').val();
+        postMessage(message);
+      }
     });
   }
 
@@ -67,22 +99,36 @@ window.addEventListener('load', () => {
       postedOn: new Date().toLocaleString('en-GB')
     });
     showChatRoom();
+    updateChatMessages();
+  }
+
+  const createRoom = (roomName) => {
+    console.info(`Creating new room: ${roomName}`);
+    webrtc.createRoom(roomName, (err, name) => {
+      room = name;
+      formEl.form('clear');
+      enterRoom();
+    });
   }
 
   const joinRoom = (roomName) => {
-    console.log(`Joining Room ${roomName}`)
+    console.log(`Joining Room: ${roomName}`)
     webrtc.joinRoom(roomName);
     room = roomName;
     enterRoom();
   }
 
-  // Form Validation Rules
-  formEl.form({
-    fields: {
-      room: 'empty',
-      username: 'empty',
-    },
+  // Receive message from remote user
+  webrtc.connection.on('message', (data) => {
+    console.log(data);
+    if (data.type === 'chat') {
+      const message = data.payload;
+      messages.push(message);
+      showChatRoom();
+    }
   });
+
+
   $('.submit').on('click', (event) => {
     if (!formEl.form('is valid')) {
       return false;
@@ -97,43 +143,6 @@ window.addEventListener('load', () => {
 
     return false;
   });
-
-  const postMessage = (message) => {
-    const chatMessage = {
-      username,
-      message,
-      postedOn: new Date().toLocaleString('en-GB')
-    }
-    // Send to all peers
-    webrtc.sendToAll("chat", chatMessage);
-    // Update messages locally
-    messages.push(chatMessage);
-    $('#post-message').val('');
-    showChatRoom();
-  }
-
-  const showChatRoom = () => {
-    formEl.hide();
-    const html = chatRoomTemplate({ room, messages });
-    chatEl.html(html);
-    const postForm = $('form');
-    postForm.form({
-      message: 'empty'
-    });
-    // automatically scroll downwards
-    const scrollHeight = chatEl.prop("scrollHeight");
-    chatEl.animate({ scrollTop: scrollHeight }, "slow");
-    $('#post-btn').on('click', () => {
-      const message = $('#post-message').val();
-      postMessage(message);
-    });
-    $('#post-message').on('keyup', (event) => {
-      if (event.keyCode === 13) {
-        const message = $('#post-message').val();
-        postMessage(message);
-      }
-    });
-  }
 
   const createRoomHandler = () => {
     if (!formEl.form('is valid')) {
