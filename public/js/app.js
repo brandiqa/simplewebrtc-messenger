@@ -10,7 +10,6 @@ window.addEventListener('load', () => {
   const formEl = $('form');
 
   // Webrtc data
-  let webrtc;
   let room;
 
   // Chat data
@@ -21,26 +20,24 @@ window.addEventListener('load', () => {
   localVideoEl.hide();
   remoteVideoEl.hide();
 
-   // create our webrtc connection
-  const createWebrtc = () => {
-    return new SimpleWebRTC({
-      // the id/element dom element that will hold "our" video
-      localVideoEl: 'local-video',
-      // the id/element dom element that will hold remote videos
-      remoteVideosEl: 'remote-video',
-      // immediately ask for camera access
-      autoRequestMedia: true,
-      debug: false,
-      detectSpeakingEvents: true,
-      autoAdjustMic: false
-    });
+  // create our webrtc connection
+  const webrtc = new SimpleWebRTC({
+    // the id/element dom element that will hold "our" video
+    localVideoEl: 'local-video',
+    // the id/element dom element that will hold remote videos
+    remoteVideosEl: 'remote-video',
+    // immediately ask for camera access
+    autoRequestMedia: true,
+    debug: false,
+    detectSpeakingEvents: true,
+    autoAdjustMic: false
+  });
 
-    // We got access to local camera
-    webrtc.on('localStream', (stream) => {
-      localImage.hide();
-      localVideo.show();
-    });
-  }
+   // We got access to local camera
+  webrtc.on('localStream', (stream) => {
+    localImageEl.hide();
+    localVideoEl.show();
+  });
 
   // Form Validation Rules
   formEl.form({
@@ -56,18 +53,10 @@ window.addEventListener('load', () => {
     const roomName = $('#room').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
     console.info(`Creating new room: ${roomName}`);
 
-    webrtc = createWebrtc();
-
     webrtc.createRoom(roomName, (err, name) => {
       let room = name;
       formEl.form('clear');
       showChatRoom();
-    });
-
-    // We got access to local camera
-    webrtc.on('localStream', (stream) => {
-      localImageEl.hide();
-      localVideoEl.show();
     });
 
     return false;
