@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
   let remoteVideosCount = 0;
 
   // Webrtc data
-  let room;
+  // let room;
 
   // Hide cameras until they are initialized
   localVideoEl.hide();
@@ -25,7 +25,7 @@ window.addEventListener('load', () => {
   // Add validation rules to Create/Join Room Form
   formEl.form({
     fields: {
-      room: 'empty',
+      roomName: 'empty',
       username: 'empty',
     },
   });
@@ -52,7 +52,8 @@ window.addEventListener('load', () => {
   // Remote video was added
   webrtc.on('videoAdded', (video, peer) => {
     // eslint-disable-next-line no-console
-    console.log(`Remote Video added: ${peer}`);
+    console.log(peer);
+    console.log(video);
     const id = webrtc.getDomId(peer);
     const html = remoteVideoTemplate({ id });
     if (remoteVideosCount === 0) {
@@ -90,7 +91,7 @@ window.addEventListener('load', () => {
   };
 
   // Display Chat Interface
-  const showChatRoom = () => {
+  const showChatRoom = (room) => {
     formEl.hide();
     const html = chatTemplate({ room });
     chatEl.html(html);
@@ -115,9 +116,8 @@ window.addEventListener('load', () => {
     // eslint-disable-next-line no-console
     console.info(`Creating new room: ${roomName}`);
     webrtc.createRoom(roomName, (err, name) => {
-      room = name;
       formEl.form('clear');
-      showChatRoom();
+      showChatRoom(name);
       postMessage(`${username} created chatroom`);
     });
   };
@@ -127,8 +127,7 @@ window.addEventListener('load', () => {
     // eslint-disable-next-line no-console
     console.log(`Joining Room: ${roomName}`);
     webrtc.joinRoom(roomName);
-    room = roomName;
-    showChatRoom();
+    showChatRoom(roomName);
     postMessage(`${username} created chatroom`);
   };
 
@@ -147,7 +146,7 @@ window.addEventListener('load', () => {
       return false;
     }
     username = $('#username').val();
-    const roomName = $('#room').val().toLowerCase();
+    const roomName = $('#roomName').val().toLowerCase();
     if (event.target.id === 'create-btn') {
       createRoom(roomName);
     } else {
