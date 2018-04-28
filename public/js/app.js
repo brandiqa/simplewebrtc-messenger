@@ -57,6 +57,7 @@ window.addEventListener('load', () => {
       remoteVideosEl.append(html);
     }
     $(`#${id}`).html(video);
+    $(`#${id} video`).addClass('ui image medium'); // Make video element responsive
     remoteVideosCount += 1;
   });
 
@@ -123,7 +124,7 @@ window.addEventListener('load', () => {
     console.log(`Joining Room: ${roomName}`);
     webrtc.joinRoom(roomName);
     showChatRoom(roomName);
-    postMessage(`${username} created chatroom`);
+    postMessage(`${username} joined chatroom`);
   };
 
   // Receive message from remote user

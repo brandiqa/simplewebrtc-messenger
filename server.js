@@ -16,6 +16,3 @@ app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.info('listening on %d', port);
 });
-
-
-

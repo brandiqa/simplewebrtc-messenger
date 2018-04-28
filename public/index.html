@@ -16,6 +16,7 @@
     <div class="ui two column stackable grid">
       <div class="ui ten wide column">
         <div class="ui segment">
+
           <!-- Chat Room Form -->
           <div class="ui form">
             <div class="fields">
@@ -35,12 +36,14 @@
               <div id="join-btn" class="ui submit green button">Join Room</div>
             </div>
           </div>
+
           <!-- Chat Room Messages -->
           <div id="chat"></div>
         </div>
       </div>
+
+      <!-- Local Camera -->
       <div class="ui six wide column">
-        <!-- Display video of the current user -->
         <img  id="local-image" class="ui large image" src="images/image.png">
         <video id="local-video" class="ui large image"  autoplay></video>
         <h4 class="ui center aligned header" style="margin:0;">
@@ -48,20 +51,10 @@
         </h4>
       </div>
     </div>
+
+    <!-- Remote Cameras -->
     <h3 class="ui center aligned header">Remote Cameras</h3>
     <div id="remote-videos" class="ui stackable grid">
-      <div class="four wide column">
-        <img class="ui centered medium image" src="images/image.png">
-      </div>
-      <div class="four wide column">
-        <img class="ui centered medium image" src="images/image.png">
-      </div>
-      <div class="four wide column">
-        <img class="ui centered medium image" src="images/image.png">
-      </div>
-      <div class="four wide column">
-        <img class="ui centered medium image" src="images/image.png">
-      </div>
       <div class="four wide column">
         <img class="ui centered medium image" src="images/image.png">
       </div>
