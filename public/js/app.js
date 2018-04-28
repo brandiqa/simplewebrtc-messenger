@@ -12,12 +12,9 @@ window.addEventListener('load', () => {
   const localVideoEl = $('#local-video');
 
   // Remote Videos
-  const remoteVideoTemplate = Handlebars.compile($('#chat-content-template').html());
+  const remoteVideoTemplate = Handlebars.compile($('#remote-video-template').html());
   const remoteVideosEl = $('#remote-videos');
   let remoteVideosCount = 0;
-
-  // Webrtc data
-  // let room;
 
   // Hide cameras until they are initialized
   localVideoEl.hide();
