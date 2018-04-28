@@ -110,18 +110,6 @@ window.addEventListener('load', () => {
     });
   };
 
-  // Join Chat Room Session
-  const enterRoom = () => {
-    // Add joined message
-    messages.push({
-      username,
-      message: `${username} joined chatroom`,
-      postedOn: new Date().toLocaleString('en-GB'),
-    });
-    showChatRoom();
-    updateChatMessages();
-  };
-
   // Register new Chat Room
   const createRoom = (roomName) => {
     // eslint-disable-next-line no-console
@@ -129,7 +117,8 @@ window.addEventListener('load', () => {
     webrtc.createRoom(roomName, (err, name) => {
       room = name;
       formEl.form('clear');
-      enterRoom();
+      showChatRoom();
+      postMessage(`${username} created chatroom`);
     });
   };
 
@@ -139,7 +128,8 @@ window.addEventListener('load', () => {
     console.log(`Joining Room: ${roomName}`);
     webrtc.joinRoom(roomName);
     room = roomName;
-    enterRoom();
+    showChatRoom();
+    postMessage(`${username} created chatroom`);
   };
 
   // Receive message from remote user
