@@ -1,4 +1,10 @@
-# Simple WebRTC Messenger
+# Deprecated
+
+The open-source version of SimpleWebRTC has been [deprecated](https://www.npmjs.com/package/simplewebrtc). There's now a commercial version which actually is a service for WebRTC instead of being just a library - [www.simplewebrtc.com](https://www.simplewebrtc.com/).
+
+Do also note that this project is currently broken. Video Streaming does not work anymore since the library it depends on is no longer maintained.
+
+## Simple WebRTC Messenger
 
 A tutorial on building a WebRTC video chat app with [SimpleWebRTC](https://simplewebrtc.com/) , that allows you to communicate with (for example) your customers in real-time.
 
@@ -26,7 +32,7 @@ If you would like to quickly test out the app on a public domain without dealing
 2. Run `npm install`
 3. Run `npm install -g now`
 4. Deploy the server with `now --public`. Follow the printed out instructions
-5. Visit the url provided
+5. Visit the URL provided
 6. Enter room name and username, click 'Create Room'
 7. Invite a friend or use another device with a front camera, visit the url. Give another name but provide the same room name
 8. Remote videos should show up on both videos. You can also send chat which also works without video
