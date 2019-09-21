@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Simple WebRTC Messenger",
   "scripts": {
-    "start": "node server.js"
+    "start": "node api/server.js"
   },
   "keywords": [
     "WebRTC"

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="scripts/semantic-ui-css/semantic.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
   <link rel="stylesheet" href="css/style.css">
   <title>SimpleWebRTC Demo</title>
 </head>
+
 <body>
 
   <div class="ui container">
@@ -44,8 +46,8 @@
 
       <!-- Local Camera -->
       <div class="ui six wide column">
-        <img  id="local-image" class="ui large image" src="images/image.png">
-        <video id="local-video" class="ui large image"  autoplay></video>
+        <img id="local-image" class="ui large image" src="images/image.png">
+        <video id="local-video" class="ui large image" autoplay></video>
         <h4 class="ui center aligned header" style="margin:0;">
           Local Camera
         </h4>
@@ -80,7 +82,7 @@
 
   <!-- Chat Content Template -->
   <script id="chat-content-template" type="text/x-handlebars-template">
-   {{#each messages}}
+    {{#each messages}}
     <div class="event">
       <div class="label">
         <i class="icon blue user"></i>
@@ -116,10 +118,12 @@
   </script>
 
   <!-- Scripts -->
-  <script src="scripts/jquery/dist/jquery.min.js"></script>
-  <script src="scripts/semantic-ui-css/semantic.min.js"></script>
-  <script src="scripts/handlebars/dist/handlebars.min.js "></script>
-  <script src="scripts/simplewebrtc/out/simplewebrtc-with-adapter.bundle.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.2.0/handlebars.min.js"></script>
+  <script src="js/simplewebrtc-with-adapter.bundle.js"></script>
   <script src="js/app.js"></script>
 </body>
+
 </html>

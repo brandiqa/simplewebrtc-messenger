@@ -34,7 +34,7 @@ If you would like to quickly test out the app on a public domain without dealing
 4. Deploy the server with `now --public`. Follow the printed out instructions
 5. Visit the URL provided
 6. Enter room name and username, click 'Create Room'
-7. Invite a friend or use another device with a front camera, visit the url. Give another name but provide the same room name
+7. Invite a friend or use another device with a front camera, visit the URL. Give another name but provide the same room name
 8. Remote videos should show up on both videos. You can also send chat which also works without video
 
 If the video stutters or freezes, it's probably due to the slow upload speeds given by your ISP.
